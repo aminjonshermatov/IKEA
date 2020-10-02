@@ -13,7 +13,10 @@ export const getData = {
     },
     wishList(list, callback) {
         this.get(data => {
-            const result = data.filter(item => list.includes(item.id));
+            let result = data.filter(item => list.includes(item.id));
+
+            if (result.length == 0) result = 'Список желаний пуст';
+
             callback(result);
         });
     },
@@ -37,13 +40,16 @@ export const getData = {
     },
     search(value, callback) {
         this.get(data => {
-            const result = data.filter(item => {
+            let result = data.filter(item => {
                 for (const prop in item) {
                     if (PARAM.search.includes(prop) && item[prop].toLowerCase().includes(value.toLowerCase())) {
                         return true;
                     }
                 }
             });
+
+            if (result.length == 0) result = 'По вашему запросу ничего не найдено';
+            
             callback(result);
         });
     },
