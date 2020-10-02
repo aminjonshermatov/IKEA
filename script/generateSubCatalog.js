@@ -31,4 +31,4 @@ const generateSubCatalog = () => {
     document.body.insertAdjacentHTML('beforeend', subCatalog);
 };
 
-generateSubCatalog();
+export default generateSubCatalog;
