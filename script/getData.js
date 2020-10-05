@@ -6,10 +6,21 @@ const PARAM = {
 
 export const getData = {
     url: 'database/dataBase.json',
+
+    async getData (url) {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`Error in this url: ${url}, status: ${response}`);
+        }
+    
+        return await response.json();
+    },
+
     get(process) {
-        fetch(this.url)
-            .then(response => response.json())
-            .then(process);
+        this.getData(this.url)
+            .then(process)
+            .catch(err => console.error(err));
     },
     wishList(list, callback) {
         this.get(data => {
